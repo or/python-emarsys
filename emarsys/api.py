@@ -18,6 +18,10 @@ import datetime
 import hashlib
 import random
 import requests
+from .errors import (  # NOQA
+    EmarsysError, MaxSizeExceededError, InvalidDataError,
+    NotFoundError, AlreadyExistsError, error_dictionary
+)
 try:
     import simplejson as json
     assert json  # Silence potential warnings from static analysis tools
@@ -96,10 +100,10 @@ class Emarsys(object):
                                         data=params,
                                         headers=headers)
         except Exception as e:
-            raise self.Error(message=repr(e))
+            raise EmarsysError(message=repr(e))
 
         if response.status_code in (401, 404):
-            raise self.Error(
+            raise EmarsysError(
                 message=u"HTTP {status_code}: {reason} [{uri}]".format(
                     status_code=response.status_code,
                     reason=response.reason,
@@ -110,7 +114,7 @@ class Emarsys(object):
         try:
             result = json.loads(response.text)
         except ValueError as e:
-            raise self.Error(message=repr(e))
+            raise EmarsysError(message=repr(e))
 
         if not (isinstance(result, dict) and "replyCode" in result and
                 "replyText" in result and "data" in result):
@@ -120,11 +124,21 @@ class Emarsys(object):
                     message=message,
                     code=response.status_code,
                 )
-            raise self.Error(message=message)
+            raise EmarsysError(message=message)
 
-        if result["replyCode"] != 0:
-            raise self.Error(message=result["replyText"],
-                             code=result["replyCode"])
+        if result.get("replyCode", 0) != 0:
+            reply_code = str(result.get("replyCode", "0"))
+            exception = error_dictionary.get(reply_code)
+            if exception:
+                raise exception(
+                    message=result["replyText"],
+                    code=result.get("replyCode", "0")
+                )
+            else:
+                raise EmarsysError(
+                    message=result["replyText"],
+                    code=result.get("replyCode", "0")
+                )
 
         return result["data"]
 

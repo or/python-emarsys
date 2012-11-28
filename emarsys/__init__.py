@@ -15,6 +15,10 @@ limitations under the License.
 """
 
 from .api import Emarsys
+from .errors import (
+    EmarsysError, MaxSizeExceededError, InvalidDataError,
+    NotFoundError, AlreadyExistsError
+)
 assert Emarsys  # Silence potential warnings from static analysis tools
 
 __author__ = "Eugene Wee"
