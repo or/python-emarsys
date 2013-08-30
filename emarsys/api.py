@@ -101,7 +101,7 @@ class Emarsys(object):
                                         uri,
                                         data=params,
                                         headers=headers,
-                                        timout=self.timeout)
+                                        timeout=self.timeout)
         except Exception as e:
             raise EmarsysError(message=repr(e))
 
