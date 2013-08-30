@@ -66,7 +66,8 @@ class Emarsys(object):
                  username,
                  secret_token,
                  base_uri=u"https://www1.emarsys.net/api/v2/",
-                 tzinfo_obj=None):
+                 tzinfo_obj=None,
+                 timeout=None):
         """
         Initialises the Emarsys API wrapper object.
         """
@@ -74,6 +75,7 @@ class Emarsys(object):
         self._secret_token = secret_token
         self._base_uri = base_uri
         self._tzinfo_obj = tzinfo_obj
+        self.timeout = timeout
 
     def __unicode__(self):
         return u"Emarsys({base_uri})".format(base_uri=self._base_uri)
@@ -98,7 +100,8 @@ class Emarsys(object):
             response = requests.request(method,
                                         uri,
                                         data=params,
-                                        headers=headers)
+                                        headers=headers,
+                                        timout=self.timeout)
         except Exception as e:
             raise EmarsysError(message=repr(e))
 
