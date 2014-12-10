@@ -14,12 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from .api import Emarsys
-from .errors import (
+from .api import Emarsys  # noqa
+from .errors import (  # noqa
     EmarsysError, MaxSizeExceededError, InvalidDataError,
     NotFoundError, AlreadyExistsError
 )
-assert Emarsys  # Silence potential warnings from static analysis tools
 
 __author__ = "Eugene Wee"
 __copyright__ = "Copyright 2012, 42 Ventures Pte Ltd"
