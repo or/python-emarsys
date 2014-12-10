@@ -34,34 +34,6 @@ class Emarsys(object):
     Emarsys REST API wrapper.
     """
 
-    class Error(Exception):
-        """
-        Exception raised when an Emarsys REST API call fails either due to a
-        network related error or for an Emarsys specific reason.
-        """
-        def __init__(self, message, code=None):
-            self.message = message
-            self.code = code
-            if self.code is not None:
-                try:
-                    self.code = int(self.code)
-                except ValueError:
-                    pass
-
-        def __unicode__(self):
-            if self.code is None:
-                message = self.message
-            else:
-                message = u"{message} ({code})".format(message=self.message,
-                                                       code=self.code)
-            return u"Emarsys.Error({message})".format(message=message)
-
-        def __str__(self):
-            return unicode(self).encode("utf8")
-
-        def __repr__(self):
-            return str(self)
-
     def __init__(self,
                  username,
                  secret_token,

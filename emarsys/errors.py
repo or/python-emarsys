@@ -18,7 +18,7 @@ class EmarsysError(Exception):
         else:
             message = u"{message} ({code})".format(message=self.message,
                                                    code=self.code)
-        return u"Emarsys.Error({message})".format(message=message)
+        return u"EmarsysError({message})".format(message=message)
 
     def __str__(self):
         return unicode(self).encode("utf8")
