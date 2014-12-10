@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 from setuptools import setup, find_packages
 
-import emarsys
-
 CLASSIFIERS = ["Development Status :: 2 - Pre-Alpha",
                "Intended Audience :: Developers",
                "License :: OSI Approved :: Apache Software License",
@@ -16,9 +14,9 @@ KEYWORDS = "emarsys api wrapper"
 REPO_URL = "https://github.com/eugene-wee/python-emarsys"
 
 setup(name="python-emarsys",
-      version=emarsys.__version__,
+      version='0.1',
       description="""Emarsys REST API wrapper for Python.""",
-      author=emarsys.__author__,
+      author='Eugene Wee',
       url=REPO_URL,
       packages=find_packages(),
       download_url=REPO_URL + "/tarball/master",
