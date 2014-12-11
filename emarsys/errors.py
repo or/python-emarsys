@@ -5,12 +5,7 @@ class EmarsysError(Exception):
 
     def __init__(self, message, code=None):
         self.message = message
-        self.code = code
-        if self.code is not None:
-            try:
-                self.code = int(self.code)
-            except ValueError:
-                pass
+        self.code = u'{code}'.format(code=code)
 
     def __unicode__(self):
         if self.code is None:
