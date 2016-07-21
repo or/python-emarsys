@@ -100,7 +100,7 @@ class Emarsys(object):
                 "replyText" in result and "data" in result):
             message = u"Unexpected response from Emarsys"
             if not response.ok:
-                message = u"{message} (HTTP {status_code})".format(
+                message = u"{message} (HTTP {code})".format(
                     message=message,
                     code=response.status_code,
                 )
