@@ -23,4 +23,4 @@ from .errors import (  # noqa
 __author__ = "Eugene Wee"
 __copyright__ = "Copyright 2012, 42 Ventures Pte Ltd"
 __credits__ = ["Eugene Wee"]
-__version__ = "0.2"
+__version__ = "0.3"
