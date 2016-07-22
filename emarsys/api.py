@@ -18,6 +18,7 @@ import datetime
 import hashlib
 import random
 import requests
+from six import PY2
 from .errors import (  # NOQA
     EmarsysError, MaxSizeExceededError, InvalidDataError,
     NotFoundError, AlreadyExistsError, error_dictionary
@@ -49,11 +50,15 @@ class Emarsys(object):
         self._tzinfo_obj = tzinfo_obj
         self.timeout = timeout
 
-    def __unicode__(self):
+    def __str__(self):
         return u"Emarsys({base_uri})".format(base_uri=self._base_uri)
 
+    if PY2:
+        __unicode__ = __str__
+        __str__ = lambda self: self.__unicode__().encode('utf-8')
+
     def __repr__(self):
-        return unicode(self).encode("utf8")
+        return str(self)
 
     def call(self, uri, method, params=None):
         """
@@ -95,7 +100,7 @@ class Emarsys(object):
                 "replyText" in result and "data" in result):
             message = u"Unexpected response from Emarsys"
             if not response.ok:
-                message = u"{message} (HTTP {status_code})".format(
+                message = u"{message} (HTTP {code})".format(
                     message=message,
                     code=response.status_code,
                 )
@@ -120,10 +125,10 @@ class Emarsys(object):
     def _authentication_header_value(self):
         now = datetime.datetime.now(self._tzinfo_obj)
         created = now.replace(microsecond=0).isoformat()
-        nonce = hashlib.md5(str(random.getrandbits(128))).hexdigest()
-        password_digest = "".join((nonce, created, self._secret_token))
-        password_digest = hashlib.sha1(password_digest).hexdigest()
-        password_digest = base64.b64encode(password_digest)
+        nonce = hashlib.md5(str(random.getrandbits(128)).encode()).hexdigest()
+        password_digest = "".join((nonce, created, self._secret_token)).encode()
+        password_digest = hashlib.sha1(password_digest).hexdigest().encode()
+        password_digest = base64.b64encode(password_digest).decode('ascii')
         return ('UsernameToken Username="{username}", '
                 'PasswordDigest="{password_digest}", Nonce="{nonce}", '
                 'Created="{created}"').format(username=self._username,
