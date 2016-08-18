@@ -23,7 +23,7 @@ import requests
 from .errors import EmarsysError, error_dictionary
 
 import json
-
+import pytz
 
 class Emarsys(object):
     """
@@ -111,8 +111,10 @@ class Emarsys(object):
         return result["data"]
 
     def _authentication_header_value(self):
-        now = datetime.datetime.now(self._tzinfo_obj)
-        created = now.replace(microsecond=0).isoformat()
+        created = (datetime.datetime.utcnow()
+                   .replace(microsecond=0, tzinfo=pytz.utc)
+                   .isoformat())
+
         nonce = hashlib.md5(str(random.getrandbits(128)).encode()).hexdigest()
         password_digest = "".join((nonce, created, self._secret_token)).encode()
         password_digest = hashlib.sha1(password_digest).hexdigest().encode()

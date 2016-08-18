@@ -13,6 +13,7 @@ responses = "*"
 "flake8" = "*"
 isort = "*"
 tox = "*"
+pytz = "*"
 
 [requires]
 python_version = "3.7"
