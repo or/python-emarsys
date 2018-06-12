@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import pytest
 import responses
-
 from emarsys import Emarsys, EmarsysError
 from freezegun import freeze_time
 

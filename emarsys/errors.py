@@ -42,6 +42,7 @@ class NotFoundError(EmarsysError):
 class AlreadyExistsError(EmarsysError):
     """Codes: 2009, 2010, 3005, 7001"""
 
+
 error_dictionary = {
     "1002": InvalidDataError,
     "2004": InvalidDataError,

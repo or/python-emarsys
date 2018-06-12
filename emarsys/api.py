@@ -17,12 +17,13 @@ import base64
 import datetime
 import hashlib
 import random
+
 import requests
 from six import PY2
-from .errors import (  # NOQA
-    EmarsysError, MaxSizeExceededError, InvalidDataError,
-    NotFoundError, AlreadyExistsError, error_dictionary
-)
+
+from .errors import (AlreadyExistsError, EmarsysError, InvalidDataError, # noqa
+                     MaxSizeExceededError, NotFoundError, error_dictionary)
+
 try:
     import simplejson as json
     assert json  # Silence potential warnings from static analysis tools
@@ -60,7 +61,7 @@ class Emarsys(object):
     def __repr__(self):
         return str(self)
 
-    def call(self, uri, method, params=None):
+    def call(self, uri, method, params=None):  # noqa
         """
         Send the API call request to the Emarsys server.
         uri: API method URI

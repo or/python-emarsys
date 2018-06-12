@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 CLASSIFIERS = ["Development Status :: 2 - Pre-Alpha",
                "Intended Audience :: Developers",
@@ -11,12 +11,14 @@ CLASSIFIERS = ["Development Status :: 2 - Pre-Alpha",
                "Programming Language :: Python :: 2.7",
                "Programming Language :: Python :: 3",
                "Programming Language :: Python :: 3.5",
+               "Programming Language :: Python :: 3.6",
+               "Programming Language :: Python :: 3.7",
                "Programming Language :: Python :: Implementation :: CPython",
                "Topic :: Software Development :: Libraries :: Python Modules"]
 
 KEYWORDS = "emarsys api wrapper"
 
-REPO_URL = "https://github.com/eugene-wee/python-emarsys"
+REPO_URL = "https://github.com/machtfit/python-emarsys"
 
 setup(name="python-emarsys",
       version='0.2',
