@@ -23,7 +23,7 @@ KEYWORDS = "emarsys api wrapper"
 REPO_URL = "https://github.com/machtfit/python-emarsys"
 
 setup(name="python-emarsys",
-      version='0.4',
+      version='0.5',
       description="""Emarsys REST API wrapper for Python.""",
       author='Eugene Wee',
       url=REPO_URL,
