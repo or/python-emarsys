@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals
+
 from six import PY2
 
 
@@ -8,15 +10,15 @@ class EmarsysError(Exception):
 
     def __init__(self, message, code=None):
         self.message = message
-        self.code = u'{code}'.format(code=code)
+        self.code = '{code}'.format(code=code)
 
     def __str__(self):
         if self.code is None:
             message = self.message
         else:
-            message = u"{message} ({code})".format(message=self.message,
+            message = "{message} ({code})".format(message=self.message,
                                                    code=self.code)
-        return u"EmarsysError({message})".format(message=message)
+        return "EmarsysError({message})".format(message=message)
 
     if PY2:
         __unicode__ = __str__

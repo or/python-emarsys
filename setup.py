@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+from __future__ import absolute_import, unicode_literals
+
 from setuptools import find_packages, setup
 
 CLASSIFIERS = ["Development Status :: 2 - Pre-Alpha",

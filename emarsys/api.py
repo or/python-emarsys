@@ -13,6 +13,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+from __future__ import absolute_import, unicode_literals
+
 import base64
 import datetime
 import hashlib
@@ -21,8 +23,9 @@ import random
 import requests
 from six import PY2
 
-from .errors import (AlreadyExistsError, EmarsysError, InvalidDataError, # noqa
-                     MaxSizeExceededError, NotFoundError, error_dictionary)
+from .errors import (AlreadyExistsError, EmarsysError,  # noqa
+                     InvalidDataError, MaxSizeExceededError, NotFoundError,
+                     error_dictionary)
 
 try:
     import simplejson as json
@@ -39,7 +42,7 @@ class Emarsys(object):
     def __init__(self,
                  username,
                  secret_token,
-                 base_uri=u"https://www1.emarsys.net/api/v2/",
+                 base_uri="https://www1.emarsys.net/api/v2/",
                  tzinfo_obj=None,
                  timeout=None):
         """
@@ -52,7 +55,7 @@ class Emarsys(object):
         self.timeout = timeout
 
     def __str__(self):
-        return u"Emarsys({base_uri})".format(base_uri=self._base_uri)
+        return "Emarsys({base_uri})".format(base_uri=self._base_uri)
 
     if PY2:
         __unicode__ = __str__
@@ -85,7 +88,7 @@ class Emarsys(object):
 
         if response.status_code in (401, 404):
             raise EmarsysError(
-                message=u"HTTP {status_code}: {reason} [{uri}]".format(
+                message="HTTP {status_code}: {reason} [{uri}]".format(
                     status_code=response.status_code,
                     reason=response.reason,
                     uri=uri,
@@ -99,9 +102,9 @@ class Emarsys(object):
 
         if not (isinstance(result, dict) and "replyCode" in result and
                 "replyText" in result and "data" in result):
-            message = u"Unexpected response from Emarsys"
+            message = "Unexpected response from Emarsys"
             if not response.ok:
-                message = u"{message} (HTTP {code})".format(
+                message = "{message} (HTTP {code})".format(
                     message=message,
                     code=response.status_code,
                 )
