@@ -1,8 +1,3 @@
-from __future__ import absolute_import, unicode_literals
-
-from six import PY2
-
-
 class EmarsysError(Exception):
     """
     General Emarsys Exception
@@ -19,10 +14,6 @@ class EmarsysError(Exception):
             message = "{message} ({code})".format(message=self.message,
                                                    code=self.code)
         return "EmarsysError({message})".format(message=message)
-
-    if PY2:
-        __unicode__ = __str__
-        __str__ = lambda self: self.__unicode__().encode('utf-8')
 
     def __repr__(self):
         return str(self)
