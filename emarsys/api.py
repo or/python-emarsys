@@ -13,25 +13,16 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from __future__ import absolute_import, unicode_literals
-
 import base64
 import datetime
 import hashlib
 import random
 
 import requests
-from six import PY2
 
-from .errors import (AlreadyExistsError, EmarsysError,  # noqa
-                     InvalidDataError, MaxSizeExceededError, NotFoundError,
-                     error_dictionary)
+from .errors import EmarsysError, error_dictionary
 
-try:
-    import simplejson as json
-    assert json  # Silence potential warnings from static analysis tools
-except ImportError:
-    import json
+import json
 
 
 class Emarsys(object):
@@ -56,10 +47,6 @@ class Emarsys(object):
 
     def __str__(self):
         return "Emarsys({base_uri})".format(base_uri=self._base_uri)
-
-    if PY2:
-        __unicode__ = __str__
-        __str__ = lambda self: self.__unicode__().encode('utf-8')
 
     def __repr__(self):
         return str(self)
