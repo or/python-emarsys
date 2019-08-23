@@ -73,7 +73,9 @@ class Emarsys(object):
         except Exception as e:
             raise EmarsysError(message=repr(e))
 
-        if response.status_code in (401, 404):
+        try:
+            result = json.loads(response.text)
+        except ValueError as e:
             raise EmarsysError(
                 message="HTTP {status_code}: {reason} [{uri}]".format(
                     status_code=response.status_code,
@@ -81,11 +83,6 @@ class Emarsys(object):
                     uri=uri,
                 ),
             )
-
-        try:
-            result = json.loads(response.text)
-        except ValueError as e:
-            raise EmarsysError(message=repr(e))
 
         if not (isinstance(result, dict) and "replyCode" in result and
                 "replyText" in result and "data" in result):
