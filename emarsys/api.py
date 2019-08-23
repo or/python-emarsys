@@ -20,9 +20,7 @@ import random
 
 import requests
 
-from .errors import (AlreadyExistsError, EmarsysError,  # noqa
-                     InvalidDataError, MaxSizeExceededError, NotFoundError,
-                     error_dictionary)
+from .errors import EmarsysError, error_dictionary
 
 import json
 
